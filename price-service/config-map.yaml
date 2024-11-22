@@ -1,0 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: price-service
+data:
+  application.properties: |-
+    ## default connection pool
+    spring.datasource.hikari.connectionTimeout: 20000
+    spring.datasource.hikari.maximumPoolSize: 5
+    ## PostgreSQL
+    spring.datasource.url: jdbc:postgresql://host.docker.internal:5433/products?gssEncMode=disable
+    spring.datasource.username: java_app
+    spring.datasource.password: password
