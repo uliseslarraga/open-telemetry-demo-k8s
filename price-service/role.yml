@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    group: products-store-project
+  name: k8s-products-sa
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    group: products-store-project
+  name: products-store-project:view
+roleRef:
+  kind: Role
+  apiGroup: rbac.authorization.k8s.io
+  name: namespace-reader
+subjects:
+  - kind: ServiceAccount
+    name: k8s-products-sa
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+    namespace: default
+    name: namespace-reader
+rules:
+    - apiGroups: ["", "extensions", "apps"]
+      resources: ["configmaps", "pods", "services", "endpoints", "secrets"]
+      verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
