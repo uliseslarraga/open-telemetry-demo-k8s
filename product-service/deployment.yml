@@ -1,0 +1,52 @@
+#---
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  name: default
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  labels:
+    app: product
+    group: products-store-project
+  name: product-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: product
+  template:
+    metadata:
+      labels:
+        app: product
+        group: products-store-project
+    spec:
+      serviceAccountName: k8s-products-sa
+      containers:
+      - image: ghcr.io/uliseslarraga/open-telemetry-demo/product-service:main
+        name: product
+        imagePullPolicy: Always
+        env:
+          - name: SPRING_CLOUD_BOOTSTRAP_ENABLED
+            value: "true"
+          - name: SPRING_CLOUD_KUBERNETES_SECRETS_ENABLEAPI
+            value: "true"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  labels:
+    app: product
+    group: products-store-project
+  name: product-svc
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: product
