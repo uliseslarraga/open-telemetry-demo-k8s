@@ -1,0 +1,14 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: product-service
+data:
+  application.properties: |-
+    priceClient.baseUrl=http://price-svc:8081
+    ## default connection pool
+    spring.datasource.hikari.connectionTimeout: 20000
+    spring.datasource.hikari.maximumPoolSize: 5
+    ## PostgreSQL
+    spring.datasource.url: jdbc:postgresql://host.docker.internal:5433/products?gssEncMode=disable
+    spring.datasource.username: java_app
+    spring.datasource.password: password
