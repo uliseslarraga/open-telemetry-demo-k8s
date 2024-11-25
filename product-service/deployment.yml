@@ -33,6 +33,17 @@ spec:
             value: "true"
           - name: SPRING_CLOUD_KUBERNETES_SECRETS_ENABLEAPI
             value: "true"
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8081
+          initialDelaySeconds: 3
+          periodSeconds: 3
 
 ---
 apiVersion: v1
