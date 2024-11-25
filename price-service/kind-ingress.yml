@@ -5,6 +5,16 @@ metadata:
   labels:
     app: price
 spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /price
+        backend:
+          service:
+            name: price-svc
+            port:
+              number: 8081
   defaultBackend:
     service:
       name: price-svc
