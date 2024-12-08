@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: price-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: demo-group
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+        - path: /price
+          pathType: Prefix
+          backend:
+            service:
+              name: price-svc
+              port:
+                number: 8081
+  defaultBackend:
+    service:
+      name: price-svc
+      port:
+        number: 8081
+        
