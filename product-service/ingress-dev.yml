@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: product-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: demo-group
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+        - path: /product
+          pathType: Prefix
+          backend:
+            service:
+              name: product-svc
+              port:
+                number: 8080
+        
