@@ -10,6 +10,6 @@ data:
     spring.datasource.hikari.connectionTimeout: 20000
     spring.datasource.hikari.maximumPoolSize: 5
     ## PostgreSQL
-    spring.datasource.url: jdbc:postgresql://<your-rds-endpoint-here>:5432/products?gssEncMode=disable
+    spring.datasource.url: jdbc:postgresql://psql-cluster-development.cluster-cbiuddax7ztr.us-east-2.rds.amazonaws.com:5432/products?gssEncMode=disable
     spring.datasource.username: java_app
     spring.datasource.password: password
